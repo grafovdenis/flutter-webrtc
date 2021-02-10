@@ -89,7 +89,13 @@
   switch (routeChangeReason) {
       case AVAudioSessionRouteChangeReasonCategoryChange: {
           NSError* error;
-          [[AVAudioSession sharedInstance] overrideOutputAudioPort:_speakerOn? AVAudioSessionPortOverrideSpeaker : AVAudioSessionPortOverrideNone error:&error];
+          AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+          [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord
+                      withOptions:_speakerOn ? AVAudioSessionCategoryOptionDefaultToSpeaker Ayman Barghout, 2 months ago: • Bluetooth switching enabled when switching `e…
+                      : 
+                      AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionAllowBluetoothA2DP
+                        error:nil];
+          [audioSession setActive:YES error:nil];
       }
       break;
 
