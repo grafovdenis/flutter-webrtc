@@ -93,7 +93,7 @@
           [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord
                       withOptions:_speakerOn ? AVAudioSessionCategoryOptionDefaultToSpeaker Ayman Barghout, 2 months ago: • Bluetooth switching enabled when switching `e…
                       : 
-                      AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionAllowBluetoothA2DP
+                      AVAudioSessionCategoryOptionDefaultToSpeaker|AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionAllowBluetoothA2DP
                         error:nil];
           [audioSession setActive:YES error:nil];
       }
@@ -567,7 +567,7 @@
         [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord
                       withOptions:_speakerOn ? AVAudioSessionCategoryOptionDefaultToSpeaker 
                       : 
-                      AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionAllowBluetoothA2DP
+                      AVAudioSessionCategoryOptionDefaultToSpeaker|AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionAllowBluetoothA2DP
                         error:nil];
         [audioSession setActive:YES error:nil];
         result(nil);
