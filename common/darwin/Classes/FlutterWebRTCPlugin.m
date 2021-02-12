@@ -74,35 +74,7 @@
     self.localStreams = [NSMutableDictionary new];
     self.localTracks = [NSMutableDictionary new];
     self.renders = [[NSMutableDictionary alloc] init];
-#if TARGET_OS_IPHONE
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSessionRouteChange:) name:AVAudioSessionRouteChangeNotification object:nil];
-#endif
     return self;
-}
-
-
-- (void)didSessionRouteChange:(NSNotification *)notification {
-#if TARGET_OS_IPHONE
-  NSDictionary *interuptionDict = notification.userInfo;
-  NSInteger routeChangeReason = [[interuptionDict valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
-
-  switch (routeChangeReason) {
-      case AVAudioSessionRouteChangeReasonCategoryChange: {
-          NSError* error;
-          AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-          [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord
-                      withOptions:_speakerOn ? AVAudioSessionCategoryOptionDefaultToSpeaker Ayman Barghout, 2 months ago: • Bluetooth switching enabled when switching `e…
-                      : 
-                      AVAudioSessionCategoryOptionDefaultToSpeaker|AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionAllowBluetoothA2DP
-                        error:nil];
-          [audioSession setActive:YES error:nil];
-      }
-      break;
-
-    default:
-      break;
-  }
-#endif
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult) result {
@@ -567,7 +539,7 @@
         [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord
                       withOptions:_speakerOn ? AVAudioSessionCategoryOptionDefaultToSpeaker 
                       : 
-                      AVAudioSessionCategoryOptionDefaultToSpeaker|AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionAllowBluetoothA2DP
+                      AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionAllowBluetoothA2DP
                         error:nil];
         [audioSession setActive:YES error:nil];
         result(nil);
